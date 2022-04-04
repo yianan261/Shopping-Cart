@@ -22,7 +22,7 @@ to install pagination dependency, run ```yarn add react-paginate```
 
 # Authors and Acknowledgement
 
-Pagination implementation [tutorial][1] by machadop1407, but adjusted to this particular project
+Pagination implementation [tutorial][1] by machadop1407, but logic and implementation adjusted to this particular project
 
 [1]:https://www.youtube.com/watch?v=HANSMtDy508/ "tutorial"
 https://github.com/machadop1407/react-pagination-tutorial/ 
