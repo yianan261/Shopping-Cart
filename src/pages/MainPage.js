@@ -81,7 +81,6 @@ const MainPage = ({ plm }) => {
           <ShoppingCart
             productsInCart={productsInCart}
             removeProduct={removeProduct}
-            plm={plm}
             pagesVisited={pagesVisited}
             itemsPerPage={itemsPerPage}
           ></ShoppingCart>
