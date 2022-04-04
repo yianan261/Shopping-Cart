@@ -14,14 +14,14 @@ const ShoppingCart = ({ productsInCart, removeProduct }) => {
   //     productMap,
   //     productArray
   //   );
-  //   productMap.set(productArray[0], productMap.get(productArray[1].qty - 1));
+  //   productMap.set(productArray[0], productMap.get(productArray[1].qty)-1);
   // }
 
   function renderProductsInCart() {
     return (
       <span>
         <h3>Items</h3>
-        {console.log("line 15, ShoppingCart: ", productsInCart)}
+        {console.log("line 24, ShoppingCart: ", productsInCart)}
         {Array.from(productsInCart.entries()).map(
           ([name, { product, qty }], idx) => (
             <div key={"cart_item" + name} style={{ paddingBottom: "15px" }}>

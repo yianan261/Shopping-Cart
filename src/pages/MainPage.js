@@ -4,17 +4,19 @@ import ShoppingCart from "../components/ShoppingCart";
 import ProductList from "../components/ProductList";
 import { items } from "../components/Items";
 
-const ShoppingPage = () => {
-  //"products" is the state variable in ShoppingPage (a prop of ProductList)
+const MainPage = ({ plm }) => {
+  // const [itemInDB, setItemInDB] = useState([]);
+
+  //"products" is the state variable in MainPage (a prop of ProductList)
   const [products, setProducts] = useState(items);
 
-  //"total" is the state variable in ShoppingPage that is a prop for ShoppingCart
+  //"total" is the state variable in MainPage that is a prop for ShoppingCart
   //   const [total, setTotal] = useState(0);
 
-  //"productsInCart" is the state variable in ShoppingPage that is a prop for ShoppingCart
+  //"productsInCart" is the state variable in MainPage that is a prop for ShoppingCart
   const [productsInCart, setProductsInCart] = useState(new Map());
   console.log("line 19 productsInCart: ", productsInCart);
-
+  console.log("TEST");
   /**
    * function addProduct adds items to Shopping Cart
    * @param {*} takes the product that gets added
@@ -22,7 +24,10 @@ const ShoppingPage = () => {
   function addProduct(product) {
     //To keep it immutable
     const newProductsInCart = new Map(productsInCart);
-    console.log("line 23 new newProductsInCart: ", newProductsInCart);
+    console.log(
+      "line 23 new newProductsInCart: ",
+      newProductsInCart.get("Fuji Apples")
+    );
 
     let currentQty = newProductsInCart.get(product.name);
 
@@ -37,6 +42,8 @@ const ShoppingPage = () => {
     newProductsInCart.set(product.name, currentQty);
     console.log("line 36 final newProductsInCart: ", newProductsInCart);
     setProductsInCart(newProductsInCart);
+    console.log("line 43 MainPage productsInCart:", productsInCart);
+    plm.createItem(currentQty);
   }
 
   function removeProduct(productMap, productArray) {
@@ -75,5 +82,7 @@ const ShoppingPage = () => {
     </div>
   );
 };
-ShoppingPage.propTypes = {};
-export default ShoppingPage;
+MainPage.propTypes = {
+  plm: PropTypes.object.isRequired,
+};
+export default MainPage;
