@@ -16,7 +16,7 @@ const ShoppingPage = () => {
   console.log("line 19 productsInCart: ", productsInCart);
 
   /**
-   *
+   * function addProduct adds items to Shopping Cart
    * @param {*} takes the product that gets added
    */
   function addProduct(product) {
@@ -28,7 +28,7 @@ const ShoppingPage = () => {
 
     console.log("line 28, currentQTY", currentQty);
 
-    //haven't added the product yet
+    //haven't added the product yet, this initializes the currentQty
     if (currentQty === undefined) {
       currentQty = { product: product, qty: 0 };
     }
@@ -37,6 +37,22 @@ const ShoppingPage = () => {
     newProductsInCart.set(product.name, currentQty);
     console.log("line 36 final newProductsInCart: ", newProductsInCart);
     setProductsInCart(newProductsInCart);
+  }
+
+  function removeProduct(productMap, productArray) {
+    console.log(
+      "line12 MainPage, removeProduct function, productMap, productArray: ",
+      productMap,
+      productArray
+    );
+    console.log("productArray: ", productArray);
+    console.log(
+      "MainPage: productMap.get(productArray[0]): ",
+      productMap.get(productArray[0])
+    );
+    productMap.set(productArray[0], productMap.get(productArray[1].qty) - 1);
+    setProductsInCart(productMap);
+    console.log("line 49 MainPage productMap and setProductsInCart ");
   }
 
   return (
@@ -50,7 +66,10 @@ const ShoppingPage = () => {
           ></ProductList>
         </div>
         <div style={{ width: "40%" }}>
-          <ShoppingCart productsInCart={productsInCart}></ShoppingCart>
+          <ShoppingCart
+            productsInCart={productsInCart}
+            removeProduct={removeProduct}
+          ></ShoppingCart>
         </div>
       </div>
     </div>
