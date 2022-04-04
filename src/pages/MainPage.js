@@ -6,8 +6,6 @@ import { items } from "../components/Items";
 import ReactPaginate from "react-paginate";
 
 const MainPage = ({ plm }) => {
-  // const [itemInDB, setItemInDB] = useState([]);
-
   //"products" is the state variable in MainPage (a prop of ProductList)
   const [products, setProducts] = useState(items);
 
