@@ -34,7 +34,7 @@ function ProductListManager(_dbName = "ProductListDB") {
     });
   };
 
-  plm.removeItem = (item) => {
+  plm.removeItem = (_id) => {
     return new Promise((resolve, reject) => {
       // Create IndexedDb
       const db = new IndexedDb(
@@ -44,7 +44,7 @@ function ProductListManager(_dbName = "ProductListDB") {
           db.addCollection(
             "items",
             function () {
-              db.items.remove({ name: item }, resolve, reject);
+              db.items.remove({ _id: _id }, resolve, reject);
             },
             reject
           );

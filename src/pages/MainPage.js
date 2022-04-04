@@ -62,11 +62,15 @@ const MainPage = ({ plm }) => {
     let valueOfProduct = newProductsInCart.get(productArray[0]);
     valueOfProduct.qty -= 1;
     if (valueOfProduct.qty === 0) {
+      console.log("valueofProduct ID: ", valueOfProduct._id);
+      plm.createItem(valueOfProduct);
       newProductsInCart.delete(productArray[0]);
-      plm.removeItem(valueOfProduct._id);
-    } else newProductsInCart.set(productArray[0], valueOfProduct);
-    setProductsInCart(newProductsInCart);
+    } else {
+      plm.createItem(valueOfProduct);
+      newProductsInCart.set(productArray[0], valueOfProduct);
+    }
 
+    setProductsInCart(newProductsInCart);
     console.log("line 49 MainPage newProductsInCart and setProductsInCart ");
   }
 
