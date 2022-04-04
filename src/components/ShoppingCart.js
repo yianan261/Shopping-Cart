@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 const ShoppingCart = ({
@@ -7,18 +7,21 @@ const ShoppingCart = ({
   pagesVisited,
   itemsPerPage,
 }) => {
-  //reduce function: takes an arry and adds curr value to prefix sum, second parameter is the default start value
-  console.log("Line 6 ShoppingCart, productsInCart: ", productsInCart);
+  //reduce function to get total: takes an arry and adds curr value to prefix sum, second parameter is the default start value
   let total = Array.from(productsInCart.values()).reduce(
     (pTotal, p) => pTotal + p.qty * p.product.price,
     0
   );
 
+  /**
+   * function to render products in cart
+   * @returns list of products added to shopping cart
+   */
   function renderProductsInCart() {
     return (
       <span>
         <h3>Items</h3>
-        {console.log("line 24, ShoppingCart: ", productsInCart)}
+
         {Array.from(productsInCart.entries())
           .slice(pagesVisited, pagesVisited + itemsPerPage)
           .map(([name, { product, qty }], idx) => (

@@ -58,7 +58,7 @@ const MainPage = ({ plm }) => {
     let valueOfProduct = newProductsInCart.get(productArray[0]);
     valueOfProduct.qty -= 1;
     if (valueOfProduct.qty === 0) {
-      plm.createItem(valueOfProduct);
+      plm.removeItem(valueOfProduct);
       newProductsInCart.delete(productArray[0]);
     } else {
       plm.createItem(valueOfProduct);
