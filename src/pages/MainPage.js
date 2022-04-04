@@ -19,7 +19,7 @@ const MainPage = ({ plm }) => {
 
   const [pageNumber, setPageNumber] = useState(0);
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 20;
   const pagesVisited = pageNumber * itemsPerPage;
 
   const pageCount = Math.ceil(productsInCart.size / itemsPerPage);
