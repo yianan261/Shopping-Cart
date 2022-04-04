@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import ShoppingCart from "../components/ShoppingCart";
 import ProductList from "../components/ProductList";
 import { items } from "../components/Items";
+import ReactPaginate from "react-paginate";
 
 const MainPage = ({ plm }) => {
   // const [itemInDB, setItemInDB] = useState([]);
@@ -10,24 +11,30 @@ const MainPage = ({ plm }) => {
   //"products" is the state variable in MainPage (a prop of ProductList)
   const [products, setProducts] = useState(items);
 
-  //"total" is the state variable in MainPage that is a prop for ShoppingCart
-  //   const [total, setTotal] = useState(0);
-
   //"productsInCart" is the state variable in MainPage that is a prop for ShoppingCart
   const [productsInCart, setProductsInCart] = useState(new Map());
-  console.log("line 19 productsInCart: ", productsInCart);
+
+  //Pagination implementation:
+  // const listOfProducts = Array.from(productsInCart.entries());
+
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const itemsPerPage = 10;
+  const pagesVisited = pageNumber * itemsPerPage;
+
+  const pageCount = Math.ceil(productsInCart.size / itemsPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
   /**
-   * function addProduct adds items to Shopping Cart
-   * @param {*} takes the product that gets added
+   * function addProduct adds items to Shopping Cart and updates database
+   * @param {object} takes the product that gets added
    */
   function addProduct(product) {
     //To keep it immutable
     const newProductsInCart = new Map(productsInCart);
-    console.log(
-      "line 23 new newProductsInCart: ",
-      newProductsInCart.get("Fuji Apples")
-    );
 
     let currentQty = newProductsInCart.get(product.name);
 
@@ -37,41 +44,29 @@ const MainPage = ({ plm }) => {
     if (currentQty === undefined) {
       currentQty = { product: product, qty: 0 };
     }
-    console.log("line 34, currentQTY", currentQty);
+    //currentQty is an object of the key { product: product, qty: 0 }
     currentQty.qty += 1;
     newProductsInCart.set(product.name, currentQty);
-    console.log("line 36 final newProductsInCart: ", newProductsInCart);
     setProductsInCart(newProductsInCart);
-    console.log("line 43 MainPage productsInCart:", productsInCart);
     plm.createItem(currentQty);
   }
-
+  /**
+   * function that removes product from list and database
+   * @param {Map Object} productMap takes the map object
+   * @param {Array} productArray takes an array
+   */
   function removeProduct(productMap, productArray) {
-    console.log(
-      "line51 MainPage, removeProduct function, productMap, productArray: ",
-      productMap,
-      productArray
-    );
-    console.log("productArray: ", productArray);
-    console.log(
-      "MainPage: productMap.get(productArray[0]): ",
-      productMap.get(productArray[0])
-    );
-
     const newProductsInCart = new Map(productMap);
     let valueOfProduct = newProductsInCart.get(productArray[0]);
     valueOfProduct.qty -= 1;
     if (valueOfProduct.qty === 0) {
-      console.log("valueofProduct ID: ", valueOfProduct._id);
       plm.createItem(valueOfProduct);
       newProductsInCart.delete(productArray[0]);
     } else {
       plm.createItem(valueOfProduct);
       newProductsInCart.set(productArray[0], valueOfProduct);
     }
-
     setProductsInCart(newProductsInCart);
-    console.log("line 49 MainPage newProductsInCart and setProductsInCart ");
   }
 
   return (
@@ -89,7 +84,20 @@ const MainPage = ({ plm }) => {
             productsInCart={productsInCart}
             removeProduct={removeProduct}
             plm={plm}
+            pagesVisited={pagesVisited}
+            itemsPerPage={itemsPerPage}
           ></ShoppingCart>
+          <ReactPaginate
+            previousLabel={"Prev"}
+            nextLabel={"Next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationBttns"}
+            previousLinkClassName={"previousBttn"}
+            nextLinkClassName={"nextBttn"}
+            disabledClassName={"paginationDisabled"}
+            activeClassName={"paginationActive"}
+          />
         </div>
       </div>
     </div>

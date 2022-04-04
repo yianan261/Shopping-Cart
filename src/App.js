@@ -1,7 +1,7 @@
 import "./App.css";
 import MainPage from "./pages/MainPage";
 import ProductListManager from "./components/ProductListManager";
-import ReactPaginate from "react-paginate";
+
 function App() {
   //create new plm object from ProductListManager(our db), use it as a prop for MainPage component
   const plm = new ProductListManager();

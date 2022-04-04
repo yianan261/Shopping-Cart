@@ -34,6 +34,11 @@ function ProductListManager(_dbName = "ProductListDB") {
     });
   };
 
+  /**
+   * removes item from DB
+   * @param {object} takes parameter _id
+   *
+   */
   plm.removeItem = (_id) => {
     return new Promise((resolve, reject) => {
       // Create IndexedDb

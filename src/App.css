@@ -16,3 +16,34 @@ code{
 .productList{
   padding-left: 20%;
 }
+
+.paginationBttns {
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 10px;
+  margin: 8px;
+  border-radius: 50%;
+  color: #d3d6d8f8;
+  cursor: pointer;
+}
+
+.paginationBttns a:hover {
+  color: white;
+  background-color: #d3d6d8f8;
+}
+
+.paginationActive a {
+  color: white;
+  background-color: #d3d6d8f8;
+}
+
+.paginationDisabled a {
+  color: rgb(192, 192, 192);
+  background-color: rgb(192, 192, 192);
+}
