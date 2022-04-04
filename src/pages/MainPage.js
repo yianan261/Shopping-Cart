@@ -16,7 +16,7 @@ const MainPage = ({ plm }) => {
   //"productsInCart" is the state variable in MainPage that is a prop for ShoppingCart
   const [productsInCart, setProductsInCart] = useState(new Map());
   console.log("line 19 productsInCart: ", productsInCart);
-  console.log("TEST");
+
   /**
    * function addProduct adds items to Shopping Cart
    * @param {*} takes the product that gets added
@@ -48,7 +48,7 @@ const MainPage = ({ plm }) => {
 
   function removeProduct(productMap, productArray) {
     console.log(
-      "line12 MainPage, removeProduct function, productMap, productArray: ",
+      "line51 MainPage, removeProduct function, productMap, productArray: ",
       productMap,
       productArray
     );
@@ -57,9 +57,17 @@ const MainPage = ({ plm }) => {
       "MainPage: productMap.get(productArray[0]): ",
       productMap.get(productArray[0])
     );
-    productMap.set(productArray[0], productMap.get(productArray[1].qty) - 1);
-    setProductsInCart(productMap);
-    console.log("line 49 MainPage productMap and setProductsInCart ");
+
+    const newProductsInCart = new Map(productMap);
+    let valueOfProduct = newProductsInCart.get(productArray[0]);
+    valueOfProduct.qty -= 1;
+    if (valueOfProduct.qty === 0) {
+      newProductsInCart.delete(productArray[0]);
+      plm.removeItem(valueOfProduct._id);
+    } else newProductsInCart.set(productArray[0], valueOfProduct);
+    setProductsInCart(newProductsInCart);
+
+    console.log("line 49 MainPage newProductsInCart and setProductsInCart ");
   }
 
   return (
@@ -76,6 +84,7 @@ const MainPage = ({ plm }) => {
           <ShoppingCart
             productsInCart={productsInCart}
             removeProduct={removeProduct}
+            plm={plm}
           ></ShoppingCart>
         </div>
       </div>

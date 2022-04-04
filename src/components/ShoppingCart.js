@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const ShoppingCart = ({ productsInCart, removeProduct }) => {
+const ShoppingCart = ({ productsInCart, removeProduct, plm }) => {
   //reduce function: takes an arry and adds curr value to prefix sum, second parameter is the default start value
+  console.log("Line 6 ShoppingCart, productsInCart: ", productsInCart);
   let total = Array.from(productsInCart.values()).reduce(
     (pTotal, p) => pTotal + p.qty * p.product.price,
     0
@@ -28,9 +29,10 @@ const ShoppingCart = ({ productsInCart, removeProduct }) => {
               {idx + 1}. {product.name} ${product.price.toFixed(2)} , Quantity:{" "}
               {qty}{" "}
               <button
-                onClick={() =>
-                  removeProduct(productsInCart, [name, { product, qty }])
-                }
+                onClick={() => {
+                  if (qty > 0)
+                    removeProduct(productsInCart, [name, { product, qty }]);
+                }}
               >
                 -
               </button>
@@ -59,5 +61,6 @@ const ShoppingCart = ({ productsInCart, removeProduct }) => {
 
 ShoppingCart.propTypes = {
   productsInCart: PropTypes.object.isRequired,
+  plm: PropTypes.object.isRequired,
 };
 export default ShoppingCart;
